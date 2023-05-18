@@ -1,20 +1,45 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
+import MovieScreen from './pages/MovieScreen';
+import TvScreens from './pages/TvScreens';
+import SearchScreen from './pages/SearchScreen';
+import ProfileScreen from './pages/ProfileScreen';
+import { Feather } from '@expo/vector-icons';
+import HomeStack from './stacks/HomeStack';
 
-export default function App() {
+const Tab = createBottomTabNavigator()
+
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen 
+          name="Movie"
+          // component={MovieScreen}
+          component={HomeStack}
+          options={{
+            tabBarIcon: ({color, size}) => (
+                <Feather name="film" color={color} size={size - 4} />
+            )
+          }}
+        />
+        <Tab.Screen 
+          name="Tv"
+          component={TvScreens}
+        />
+        <Tab.Screen 
+          name="Search"
+          component={SearchScreen}
+        />
+        <Tab.Screen 
+          name="Profile"
+          component={ProfileScreen}
+        />
+      </Tab.Navigator>
+      
+    </NavigationContainer>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
